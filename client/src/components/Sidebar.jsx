@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import MenuItem from './MenuItem'
 import { CirclePlus, LogOut } from 'lucide-react'
 import { UserButton, useClerk } from '@clerk/clerk-react'
+import { useSelector } from 'react-redux'
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const navigate = useNavigate()
-  const user = dummyUserData
+  const user = useSelector((state)=> state.user.value)
   const { signOut } = useClerk()
   return (
     <div className={`w-60 xl:w-72 bg-white border-r border-gray-200 flex flex-col justify-between items-center max-sm:absolute top-0 bottom-0 z-30 ${sidebarOpen ? 'translate-x-0' : 'max-sm:-translate-x-full'} transition-all duration-300 ease-in-out`}>
@@ -17,13 +18,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
         <MenuItem setSidebarOpen={setSidebarOpen} />
 
-        <Link to='/create-post' className='flex items-center justify-center gap-2 py-2.5 mt-6 mx-6 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-800 active:scale-95 transition text-white cursor-pointer'>
+        <Link to='/create-post' onClick={()=>setSidebarOpen(false)} className='flex items-center justify-center gap-2 py-2.5 mt-6 mx-6 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-800 active:scale-95 transition text-white cursor-pointer'>
           <CirclePlus className='w-5 h-5' /> Create Post
         </Link>
 
       </div>
 
-      <div className='w-full border-t border-gray-200 p-4 px-7 flex itmes-center justify-between'>
+      <div className='w-full border-t border-gray-200 p-4 px-7 flex items-center justify-between'>
         <div className='flex gap-2 items-center cursor-pointer'>
           <UserButton />
           <div>

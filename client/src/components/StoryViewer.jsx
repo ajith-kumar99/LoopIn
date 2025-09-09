@@ -8,9 +8,9 @@ const StoryViewer = ({ viewStory, setViewStory }) => {
     if (viewStory && viewStory.media_type !== 'video') {
       setProgress(0)
       const duration = 10000;
-      const setTime = 100;
+      const setTime = 10;
       let elapsed = 0;
-      setInterval(() => {
+      progressInterval =  setInterval(() => {
         elapsed += setTime;
         setProgress((elapsed / duration) * 100)
       }, setTime);
@@ -40,7 +40,7 @@ const StoryViewer = ({ viewStory, setViewStory }) => {
 
       case 'video':
         return (
-          <video onEnded={() => setViewStory(null)} src={viewStory.media_url} alt='image' className='max-h-screen' controls autoPlay />
+          <video onEnded={() => setViewStory(null)} src={viewStory.media_url} className='max-h-screen' controls autoPlay />
         );
       case 'text':
         return (
